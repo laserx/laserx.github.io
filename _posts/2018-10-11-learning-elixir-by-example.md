@@ -1,6 +1,7 @@
 ---
 layout: single
 title: 通过示例学习 elixir
+date: 2018-10-11 16:46:23 +0800
 tags:
   - elixir
   - example
