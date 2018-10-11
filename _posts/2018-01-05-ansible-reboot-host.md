@@ -20,7 +20,7 @@ tags:
 
 直接上代码, 
 
-```
+```yml
 - name: turn off selinux
   selinux:
     state: disabled
@@ -28,7 +28,7 @@ tags:
 ```
 当关闭 selinux 时, 将状态寄存入 `se`, 接着
 
-```
+```yml
 - name: reboot host and wait for it to return
   shell: sleep 5 && shutdown -r now "reboot for disable selinux"
   ignore_errors: true
@@ -47,7 +47,7 @@ tags:
 
 最终代码为以下
 
-```
+```yml
 - name: install libselinux-python
   yum:
     name: libselinux-python
