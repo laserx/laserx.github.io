@@ -7,7 +7,7 @@ tags:
 ---
 
 ## version
-* ansbile 2.4.2.0
+- ansbile 2.4.2.0
 
 ## 表现
 
@@ -41,7 +41,7 @@ tags:
 ```
 根据寄存变量 `se` 中 `reboot_required` 的值, 进行服务器的重启动作.
 
-但是, 当走到这一步之后, ansible 会与 host 断开连接, 导致后续的动作无法执行. 也就是无法执行后续的 `wait_for_connection` 模块动作.
+但是, 当走到这一步之后, ansible 会与 host 断开连接, 导致后续的动作无法执行. 也就是无法执行后续的 `wait_for_connection` 模块动作.
 
 最终, 根据 [ansible issue#10472](https://github.com/ansible/ansible/issues/10472#issuecomment-257268841) 解决该问题.
 
