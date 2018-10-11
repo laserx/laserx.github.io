@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  切换至 jekyll
-date:   2018-10-11 10:30:41 +0800
+date:   2018-10-10 10:30:41 +0800
 categories: jekyll upgrade
 ---
 
