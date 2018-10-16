@@ -2,6 +2,8 @@
 layout: single
 title: elixir 中的 alias, import, require 和 use
 date: 2018-10-15 15:12 +0800
+toc: true
+toc_label: "toc"
 tags:
   - elixir
 categories: elixir
