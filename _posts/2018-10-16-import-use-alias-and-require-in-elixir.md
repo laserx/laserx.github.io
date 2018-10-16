@@ -1,7 +1,11 @@
 ---
-layout: post
-title: import use alias and require in elixir
+layout: single
+title: elixir 中的 alias, import, require 和 use
 date: 2018-10-15 15:12 +0800
+tags:
+  - elixir
+categories: elixir
+
 ---
 
 elixir 针对代码复用, 提供了 `alias`, `import` 和 `require` 以上 3 个指令, 以及 1 个名为 `use` 的宏.
@@ -28,7 +32,7 @@ end
 
 defmodule Hello do
   alias World.China, as: C
-  def state(), do: C.location
+  def continent(), do: C.location
 end
 ```
 
@@ -45,14 +49,9 @@ end
 
 defmodule Hello do
   import World.China, only: [location: 0]
-  def state(), do: location()
+  def continent(), do: location()
 end
 ```
-
-defmodule Hello do
-  import World.China, except: :macros
-  def state(), do: location()
-end
 
 我们可以使用 `only`, `except` 导入所需的函数, 当然, 可以使用 `only: :macros` 或者 `only: :functions`, 选择性的只导入函数或者宏, **注意**, `except` 不支持该种写法.
 
@@ -61,6 +60,24 @@ end
 ## require
 
 先让我们认识一下 `require`:
+
+```elixir
+defmodule World do
+  defmacro is_continent do
+    quote do: "Asia"
+  end
+end
+
+defmodule Hello do
+  require World
+
+  def continent, do: World.is_continent
+end
+``` 
+
+当我们需要调用模块中的宏时, 首先需要使用 `require` 加载. 如果不加载而直接调用, 会抛出编译异常.
+
+同时, `require` 指令和 `alias` 一样, 提供 `as` 别名能力.
 
 ## use
 
@@ -78,3 +95,9 @@ defmodule Example2 do
   Feature.__using__(option: :value)
 end
 ```
+
+## 结论
+
+elixir 提供了以上功能使我们能更好的在项目中复用我们的代码.
+
+同时, 在 `iex` 中执行 `h require` 等查询详细的帮助说明, 可以让我们在开发中更直观的查看函数特定的使用方式(文档很详细).
