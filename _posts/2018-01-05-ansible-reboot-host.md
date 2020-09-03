@@ -26,6 +26,7 @@ tags:
     state: disabled
   register: se
 ```
+
 当关闭 selinux 时, 将状态寄存入 `se`, 接着
 
 ```yml
@@ -39,6 +40,7 @@ tags:
   wait_for_connection:
     delay: 5
 ```
+
 根据寄存变量 `se` 中 `reboot_required` 的值, 进行服务器的重启动作.
 
 但是, 当走到这一步之后, ansible 会与 host 断开连接, 导致后续的动作无法执行. 也就是无法执行后续的 `wait_for_connection` 模块动作.

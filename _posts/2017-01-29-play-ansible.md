@@ -28,12 +28,14 @@ categories: devops
 ## 入门
 
 ### 文档
+
 官方文档很翔实, 但是碎片化, 我不喜欢, 看书的话我觉得没太大的必要, 毕竟我就简单用用, 不干什么惊天地泣鬼神的事, 所以我觉得看看别人的代码效果更好一些.
 
 ### 最佳实践
+
 `ansible` 的 `playbook` 作为最主要的工具, 如何组织是一个不小的挑战, 不过官方的最佳实践说明我觉得很够用了, 参考下github上别的大牛写的 `playbook` 也是很好的.
 
-```
+```text
 .
 ├── anonymous.yml
 ├── ansible.cfg
@@ -103,6 +105,7 @@ categories: devops
 在一个 `playbook` 中可以调用多个 `role`, 这样就组成了自动化配置的基础, 每个 `role` 只负责干好自己所定义的任务, 而 `playbook` 负责组合所需的模块.
 
 ### inventory
+
 `inventory` 的作用就是定义你需要维护的服务器, 格式也非常简单, 如下:
 
 ```
@@ -179,8 +182,8 @@ ssh_args=-o ForwardAgent=yes
 
 `proxy` 这个 `role` 实质上是一个 `Nginx forward proxy` 服务, 从之前的 `tree` 可以看到包含以下文件:
 
-1. nginx.conf
-  ```
+**nginx.conf**
+```
 # For more information on configuration, see:
 #   * Official English Documentation: http://nginx.org/en/docs/
 #   * Official Russian Documentation: http://nginx.org/ru/docs/
@@ -234,42 +237,42 @@ http {
     # for more information.
     include /etc/nginx/conf.d/*.conf;
 }
-  ```
+```
 
-1. handlers/main.yml
-  ```yaml
-  ---
-  - name: restart nginx
-    service:
-      name: nginx
-      state: restarted
-  ```
+**handlers/main.yml**
+```yaml
+---
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+```
 
-1. tasks/main.yml
-  ```yaml
-  ---
-  - name: install nginx
-    yum:
-      name: nginx
-      state: present
-      update_cache: yes
-    tags: setup
+**tasks/main.yml**
+```yaml
+---
+- name: install nginx
+  yum:
+    name: nginx
+    state: present
+    update_cache: yes
+  tags: setup
 
-  - name: copy nginx configure file
-    copy:
-      src: ../configures/nginx.conf
-      dest: /etc/nginx/nginx.conf
-      owner: root
-      group: root
-      mode: 0644
-    notify:
-      - restart nginx
+- name: copy nginx configure file
+  copy:
+    src: ../configures/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nginx
 
-  - name: enable nginx services
-    systemd:
-      name: nginx
-      enabled: yes
-      state: started
+- name: enable nginx services
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
   ```
 
 
